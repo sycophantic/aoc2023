@@ -35,3 +35,30 @@ for x in possible:
 
 print('part 1', sum)
 
+sum = 0
+with open('input') as input:
+  for line in input:
+    mincolors = {
+      'red': 0,
+      'green': 0,
+      'blue': 0
+    }
+    line = line.replace('Game ', '').strip()
+    line = line.split(':')
+    print('game', line[0])
+    possible[line[0]] = 0
+    game = line[1].split(';')
+    print('draws', len(game))
+    for draw in game:
+      cubes = draw.split(',')
+      for color in cubes:
+        for x in check:
+          if x in color:
+            count = int(color.replace(x, '').replace(' ', ''))
+            if count > mincolors[x]:
+              mincolors[x] = count
+    print(mincolors)
+    sum = sum + (mincolors['red']*mincolors['green']*mincolors['blue'])
+  print('part 2', sum) 
+            
+
